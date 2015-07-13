@@ -1,0 +1,65 @@
+<div ng-controller="FeedCtrl">
+  <div class="container">
+    <div ng-if="ready" class="card" ng-repeat="post in posts">
+      <div class="card-image waves-effect waves-block waves-light">
+        <img class="activator" ng-src="{{post.screenshot_url['850px']}}">
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">{{post.name}} <i class="mdi-navigation-more-vert right"></i></span>
+        <p>
+          <a href="{{post.redirect_url}}">Official link</a>
+          <span class="right"> <i class="mdi-navigation-arrow-drop-up"></i> &nbsp;{{post.votes_count}} votes &nbsp;&nbsp; <a ng-click="showComments(post.id)" style="cursor: pointer;"><i class="mdi-communication-comment"></i> &nbsp;{{post.comments_count}} comments </a>
+          </span>
+          </p>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4"><span style="font-size: 20px; font-weight: bold;">{{post.name}}</span> <i class="mdi-navigation-close right"></i></span>
+        <p><span style="text-align:center;">{{post.tagline}}</span></p>
+        <span class="card-title grey-text text-darken-4">Submitter</span class="card-title grey-text text-darken-4">
+        <ul class="collection">
+          <li class="collection-item avatar">
+            <img ng-src="{{post.user.image_url['220px']}}" alt="" class="circle">
+            <span class="title"><b>{{post.user.username}}</b></span>
+            <p><span style="color: #b2b1b1">{{post.user.name}}</span>
+            <br>
+               <a href="{{post.user.website_url}}">Website</a>
+            </p>
+            <a href="#!" class="secondary-content"><i class="mdi-action-grade"></i></a>
+          </li>
+        </ul>
+        <span class="card-title grey-text text-darken-4">Makers</span class="card-title grey-text text-darken-4">
+         <ul class="collection">
+           <li class="collection-item avatar" ng-repeat="maker in post.makers">
+             <img ng-src="{{maker.image_url['220px']}}" alt="" class="circle">
+             <span class="title"><b>{{maker.username}}</b></span>
+             <p><span style="color: #b2b1b1">{{maker.name}}</span>
+             <br>
+                <a href="{{maker.website_url}}">Website</a>
+             </p>
+             <a href="#!" class="secondary-content"><i class="mdi-action-grade"></i></a>
+           </li>
+         </ul> 
+      </div>
+    </div>
+  </div>
+  <div id="comments" class="modal" style="width:100vw; height:80wh;">
+    <div class="modal-content" style="padding-top: 0;padding-left: 0;padding-right: 0;padding-bottom:0;">
+      <ul class="collection" ng-if="commentsReady" style="margin-top:0;margin-bottom: 0;">
+        <li class="collection-item" ng-repeat="comment in comments">
+          <div class="valign-wrapper">
+            <img ng-src="{{comment.user.image_url['100px']}}" alt="" class="circle responsive-img" width="50">
+            <span style="margin-left:3%;" class="title">
+              <b>{{comment.user.name}}</b><br/>
+              <span style="color:#b2b1b1;">{{comment.user.username}}</span>
+            </span>  
+          </div>
+          <p>{{comment.body | trusted }}</p>
+          <children ng-if="comment.child_comments_count > 0" src="{{comment}}"></children>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <a ng-click="done()" class="modal-action modal-close waves-effect waves-light btn">Done</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+{
+  "name": "Hunter",
+  "version": "0.0.1",
+  "main": "index.html",
+  "window": {
+    "frame": true,
+    "resizable": true,
+    "toolbar": false,
+    "width": 1100,
+    "height": 650,
+    "min_width": 1100,
+    "min_height": 650,
+    "position": "center"
+  }
+}
